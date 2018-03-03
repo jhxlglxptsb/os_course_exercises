@@ -69,6 +69,7 @@ SETGATE(intr, 1,2,3,0);
 请问执行上述指令后， intr的值是多少？
 
 0x20003
+
 代码如下：
 ```
  unsigned intr;
@@ -97,11 +98,25 @@ SETGATE(intr, 1,2,3,0);
   - ##### [*Intel 80386 Programmer's Reference Manual*, 1987](https://pdos.csail.mit.edu/6.828/2016/readings/i386/toc.htm)
 
   - ##### [[IA-32 Intel Architecture Software Developer's Manuals](http://www.intel.com/content/www/us/en/processors/architectures-software-developer-manuals.html)]
+  
+  ```
+  seta20.2:
+    inb $0x64, %al                                  # Wait for not busy(8042 input buffer empty).
+    testb $0x2, %al
+    jnz seta20.2
+
+    movb $0xdf, %al                                 # 0xdf -> port 0x60
+    outb %al, $0x60                                 # 0xdf = 11011111, means set P2's A20 bit(the 1 bit) to 1
+  ```
+  从io空间的0x64读数据存储存到%al寄存器，判断0x2中的数据和%al的数据与运算是否为0，若是则返回到之前读数据的步骤。接着将0xdf存到寄存器%al中，并输出到0x60端口。
 
 #### 练习二
 
 宏定义和引用在内核代码中很常用。请枚举ucore中宏定义的用途，并举例描述其含义。
 
- > 利用宏进行复杂数据结构中的数据访问；
- > 利用宏进行数据类型转换；如 to_struct, 
+ > 利用宏进行复杂数据结构中的数据访问；如 le2page
+
+ > 利用宏进行数据类型转换；如 to_struct 
+ 
  > 常用功能的代码片段优化；如  ROUNDDOWN, SetPageDirty
+ 
