@@ -99,7 +99,8 @@ SETGATE(intr, 1,2,3,0);
 
   - ##### [[IA-32 Intel Architecture Software Developer's Manuals](http://www.intel.com/content/www/us/en/processors/architectures-software-developer-manuals.html)]
   
-  ```
+  
+  ```
   seta20.2:
     inb $0x64, %al                                  # Wait for not busy(8042 input buffer empty).
     testb $0x2, %al
@@ -108,6 +109,7 @@ SETGATE(intr, 1,2,3,0);
     movb $0xdf, %al                                 # 0xdf -> port 0x60
     outb %al, $0x60                                 # 0xdf = 11011111, means set P2's A20 bit(the 1 bit) to 1
   ```
+  
   从io空间的0x64读数据存储存到%al寄存器，判断0x2中的数据和%al的数据与运算是否为0，若是则返回到之前读数据的步骤。接着将0xdf存到寄存器%al中，并输出到0x60端口。
 
 #### 练习二
