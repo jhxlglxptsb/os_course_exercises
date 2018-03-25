@@ -1,4 +1,4 @@
-#lec8 虚拟内存spoc练习
+# lec8 虚拟内存spoc练习
 
 
 NOTICE
@@ -66,7 +66,7 @@ re_os_lab, v9_cpu, os_course_spoc_exercises 　in github repos。这样可以在
 
 3. 排序算法的局部性特征？
   * 参考：[九大排序算法再总结](http://blog.csdn.net/xiazdong/article/details/8462393)
-  - 
+  - 插入排序，冒泡排序，选择排序等都具有局部性特征
 
 ### 8.4 虚拟存储概念
 
